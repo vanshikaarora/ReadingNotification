@@ -31,8 +31,6 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Confirmation extends AppCompatActivity {
-    Button yes, no;
-    TextView text;
     String name,response;
     private String outputFile;
     private MediaRecorder myAudioRecorder;
@@ -43,14 +41,11 @@ public class Confirmation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-        text=findViewById(R.id.text);
-        yes = findViewById(R.id.yes);
-        no = findViewById(R.id.no);
-        //getSpeechInput();
-        response="yes";
+        getSpeechInput();
+        /*response="yes";
         if (response.trim().contains("yes")){
             getPermission();
-        }
+        }*/
 
     }
     private void recordAudio() {
@@ -112,8 +107,9 @@ public class Confirmation extends AppCompatActivity {
             case 10:
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    text.setText(result.get(0));
-                    response=result.get(0);
+                    //text.setText(result.get(0));
+                    //response=result.get(0);
+                    response="yes";
                     if (response.trim().contains("yes")){
                         getPermission();
                     }
