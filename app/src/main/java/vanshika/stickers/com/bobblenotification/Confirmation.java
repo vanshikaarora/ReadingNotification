@@ -61,11 +61,11 @@ public class Confirmation extends AppCompatActivity {
 
         Long date=new Date().getTime();
         Date current_time = new Date(Long.valueOf(date));
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.mp3";
         myAudioRecorder = new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.DEFAULT);
         myAudioRecorder.setOutputFile(outputFile);
         try {
             myAudioRecorder.prepare();
@@ -133,9 +133,11 @@ public class Confirmation extends AppCompatActivity {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_CONTACTS, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             RECORD_AUDIO_REQUEST_CODE);
                     recordAudio();
+                    //sendIntentToWhatsApp("/storage/sdcard0/QieZi/audios/01 - Dheere Dheere - DownloadMing.SE.mp3");
                 }
             }else {
                 recordAudio();
+                //sendIntentToWhatsApp("/storage/sdcard0/QieZi/audios/01 - Dheere Dheere - DownloadMing.SE.mp3");
             }
 
         }

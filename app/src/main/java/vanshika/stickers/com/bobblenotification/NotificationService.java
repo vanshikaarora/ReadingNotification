@@ -46,7 +46,22 @@ public class NotificationService extends AccessibilityService {
             if (!event.getText().isEmpty()) {
                 for (CharSequence subText : event.getText()) {
                     message.append(subText);
-                }tts(getApplication(),message.toString());
+                }
+                if (message.toString().contains("Message from")){
+                    tts(getApplication(),message.toString());
+                    final Handler h =new Handler();
+
+                    Runnable r = new Runnable() {
+
+                        public void run() {
+                            callIntent();
+                        }
+                    };
+
+                    h.postDelayed(r, 3000);
+                }
+
+
 
             }
 
@@ -71,7 +86,6 @@ public class NotificationService extends AccessibilityService {
 
                 public void onInit(int arg0) {
                     if (arg0 == TextToSpeech.SUCCESS) {
-                        //callIntent();
                         ttsOnInit(c, txt);
                     }
                 }
@@ -90,7 +104,7 @@ public class NotificationService extends AccessibilityService {
                         try {
                             textToSpeech.shutdown();
                             textToSpeech = null;
-                            //callIntent();
+                            callIntent();
                         } catch (Exception e) {
                         }
                     }
@@ -121,21 +135,7 @@ public class NotificationService extends AccessibilityService {
         } else {
             ttsOnInit(c, txt);
         }
-       /* final Handler h =new Handler();
 
-        Runnable r = new Runnable() {
-
-            public void run() {
-
-                if (!textToSpeech.isSpeaking()) {
-                    callIntent();
-                }
-
-                h.postDelayed(this, 1000);
-            }
-        };
-
-        h.postDelayed(r, 10000);*/
     }
 
     private static void callIntent() {
@@ -150,21 +150,6 @@ public class NotificationService extends AccessibilityService {
         } else {
             tts(c, txt);
         }
-        final Handler h =new Handler();
-
-        Runnable r = new Runnable() {
-
-            public void run() {
-
-                if (!textToSpeech.isSpeaking()) {
-                    callIntent();
-                }
-
-                h.postDelayed(this, 1000);
-            }
-        };
-
-        h.postDelayed(r, 1000);
 
     }
 
