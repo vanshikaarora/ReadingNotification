@@ -19,7 +19,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 
 public class NotificationService extends AccessibilityService {
     public static TextToSpeech textToSpeech = null;
-    public static String name;
+    public static String name,message;
     private static Context context;
     @Override
     protected void onServiceConnected() {
@@ -44,8 +44,6 @@ public class NotificationService extends AccessibilityService {
         }*/
         if (event.getEventType() == AccessibilityEvent.TYPE_NOTIFICATION_STATE_CHANGED) {
             context=getApplicationContext();
-            name=event.getText().toString();
-            name=name.substring(name.lastIndexOf(" "));
             if (event.getPackageName().toString().equals("com.gbwhatsapp3")){
                 StringBuilder message = new StringBuilder();
                 if (!event.getText().isEmpty()) {
@@ -53,6 +51,7 @@ public class NotificationService extends AccessibilityService {
                         message.append(subText);
                     }
                     if (message.toString().contains("Message from")){
+                        name=message.toString().substring(13);
                         tts(getApplication(),message.toString());
                         final Handler h =new Handler();
 
@@ -76,7 +75,7 @@ public class NotificationService extends AccessibilityService {
                         currentNode.getChild(2).performAction(AccessibilityNodeInfo.ACTION_CLICK);
                         Bundle arguments = new Bundle();
                         arguments.putCharSequence(AccessibilityNodeInfo
-                                .ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, "+91 91492 45760");
+                                .ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, name);//+91 91492 45760
                         AccessibilityNodeInfo editTextNode = getRootInActiveWindow();
                         if (editTextNode != null && editTextNode.getClassName().equals("android.widget.FrameLayout") && editTextNode.getChild(0) != null && editTextNode.getChild(0).getClassName().equals("android.support.v7.widget.an") && editTextNode.getChild(0).getChild(0) != null && editTextNode.getChild(0).getChild(0).getClassName().equals("android.widget.EditText"))
                             editTextNode.getChild(0).getChild(0).performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, arguments);
