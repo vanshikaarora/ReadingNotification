@@ -34,6 +34,7 @@ public class Confirmation extends AppCompatActivity {
     String name,response;
     private String outputFile;
     private MediaRecorder myAudioRecorder;
+    public static boolean ACTION_SEND=false;
     public static final int RECORD_AUDIO_REQUEST_CODE = 0;
 
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
@@ -148,6 +149,7 @@ public class Confirmation extends AppCompatActivity {
             share.setPackage("com.whatsapp");
             share.putExtra(Intent.EXTRA_STREAM, uri);
             startActivity(Intent.createChooser(share, "Share"));
+            ACTION_SEND=true;
         }
         catch (Exception e){
             e.printStackTrace();
