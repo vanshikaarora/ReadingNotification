@@ -100,7 +100,6 @@ public class NotificationService extends AccessibilityService {
                     }
                 }
 
-
             }
         }
     }
@@ -265,13 +264,18 @@ public class NotificationService extends AccessibilityService {
                                         temp=msg.substring(0,msg.indexOf(":"));int c=0;
                                         for(int j=0;j<temp.length();j++){
                                             if (temp.charAt(j)=='@') c++;
-                                            if (c==2) return;
+                                            if (c>=2)
+                                                return;
                                         }
                                     }
                                     if(!(msg.indexOf(":")==msg.lastIndexOf(":"))){
                                         return;
                                     }
                                     if (msg.contains(":")){
+                                        String t=msg.substring(0,msg.indexOf(":"));
+                                        if (t.contains("Voice message (") && msg.lastIndexOf(")")==msg.length()-1){
+                                            msgList="A voice message";
+                                        } else
                                         if (isContact(msg.substring(0,msg.indexOf(":"))) || msg.substring(0,msg.indexOf(":")).trim().equals(name)){
                                             msgList = msgList + msg.substring(msg.indexOf(":"))      + " ";
                                         }

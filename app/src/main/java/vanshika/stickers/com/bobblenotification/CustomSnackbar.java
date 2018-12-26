@@ -2,6 +2,7 @@ package vanshika.stickers.com.bobblenotification;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BaseTransientBottomBar;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,16 @@ public class CustomSnackbar extends BaseTransientBottomBar<CustomSnackbar> {
 
         @Override
         public void animateContentIn(int delay, int duration) {
-            // TODO: handle enter animation
+            ViewCompat.setScaleY(view, 0f);
+            ViewCompat.animate(view).scaleY(1f).setDuration(duration).setStartDelay(delay);
+
         }
 
         @Override
         public void animateContentOut(int delay, int duration) {
-            // TODO: handle exit animation
+            ViewCompat.setScaleY(view, 1f);
+            ViewCompat.animate(view).scaleY(0f).setDuration(duration).setStartDelay(delay);
+
         }
     }
 

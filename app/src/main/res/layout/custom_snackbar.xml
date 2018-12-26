@@ -3,24 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#fbfbfb"
+        >
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="19dp"
+        android:textColor="#101010"
+        android:layout_marginLeft="65dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Ranvir"/>
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Would you like to respond to the message?"/>
-    <Button
+        android:layout_marginLeft="65dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="#008284"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        android:text="Are you coming today? ..."/>
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        android:background="#c0c0c0"/>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/line">
+        <TextView
+            android:id="@+id/reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="18dp"
+            android:paddingLeft="18dp"
+            android:textSize="24dp"
+            android:textColor="#000000"
+            android:text="Reply Ranvir?"/>
+        <TextView
+            android:id="@+id/no_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/yes_button"
+            android:paddingRight="29dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="24dp"
+            android:text="No"
+            />
+    <TextView
         android:id="@+id/yes_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/text"
-        android:text="Yes"/>
-    <Button
-        android:id="@+id/no_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/text"
+        android:textSize="24dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#ff8000"
+        android:paddingRight="24dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="No"
-        />
+        android:text="Yes"/>
 
+    </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
