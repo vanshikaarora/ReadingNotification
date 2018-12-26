@@ -2,8 +2,11 @@ package vanshika.stickers.com.bobblenotification;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaRecorder;
@@ -43,6 +46,7 @@ public class Confirmation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
         getSpeechInput();
+        registerReceiver(close, new IntentFilter("kill"));
         /*response="yes";
         if (response.trim().contains("yes")){
             getPermission();
@@ -186,5 +190,11 @@ public class Confirmation extends AppCompatActivity {
             }
         }
     }
+    private final BroadcastReceiver close = new BroadcastReceiver() {
 
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
+    };
 }
