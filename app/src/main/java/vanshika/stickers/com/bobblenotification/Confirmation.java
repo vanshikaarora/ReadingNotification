@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +33,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
-public class Confirmation extends AppCompatActivity {
+public class Confirmation extends Activity {
     String name,response;
     private String outputFile;
+    private TextView textClock;
     private MediaRecorder myAudioRecorder;
     public static boolean ACTION_SEND=false;
     public static final int RECORD_AUDIO_REQUEST_CODE = 0;
@@ -47,6 +50,8 @@ public class Confirmation extends AppCompatActivity {
         setContentView(R.layout.activity_confirmation);
         getSpeechInput();
         registerReceiver(close, new IntentFilter("kill"));
+        textClock=findViewById(R.id.textClock);
+        //textClock.setSelected(true);
         /*response="yes";
         if (response.trim().contains("yes")){
             getPermission();
@@ -58,7 +63,20 @@ public class Confirmation extends AppCompatActivity {
         String file_path=getApplicationContext().getFilesDir().getPath();
 
         File file= new File(file_path);
+        final long t=System.currentTimeMillis();
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                String ms = String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis()-t) % TimeUnit.HOURS.toMinutes(1),
+                        TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()-t) % TimeUnit.MINUTES.toSeconds(1));
+                textClock.setText(ms);
+                handler.postDelayed(this, 100);
+            }
+        };
 
+//Start
+        handler.postDelayed(runnable, 100);
         Long date=new Date().getTime();
         Date current_time = new Date(Long.valueOf(date));
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.mp3";

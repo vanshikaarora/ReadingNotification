@@ -6,6 +6,8 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class CustomSnackbar extends BaseTransientBottomBar<CustomSnackbar> {
 
@@ -23,7 +25,27 @@ public class CustomSnackbar extends BaseTransientBottomBar<CustomSnackbar> {
 
         return customSnackbar;
     }
-    private static class ContentViewCallback
+    public CustomSnackbar setText(CharSequence text) {
+        TextView textView = (TextView) getView().findViewById(R.id.name);
+        textView.setText(text);
+        return this;
+    }
+
+    public CustomSnackbar setAction(CharSequence text, final View.OnClickListener listener) {
+        TextView actionView = (TextView) getView().findViewById(R.id.yes_button);
+        actionView.setText(text);
+        actionView.setVisibility(View.VISIBLE);
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(view);
+                // Now dismiss the Snackbar
+                dismiss();
+            }
+        });
+        return this;
+    }
+    public static class ContentViewCallback
             implements BaseTransientBottomBar.ContentViewCallback {
 
         private View view;

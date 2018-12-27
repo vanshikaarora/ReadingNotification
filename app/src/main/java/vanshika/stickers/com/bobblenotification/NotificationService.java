@@ -21,7 +21,9 @@ import android.speech.tts.UtteranceProgressListener;
 import android.support.annotation.RequiresApi;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Toast;
@@ -47,8 +49,9 @@ public class NotificationService extends AccessibilityService {
             info.feedbackType = AccessibilityServiceInfo.FEEDBACK_ALL_MASK;
             info.notificationTimeout = 100;
             info.packageNames = null;
-            readMsgs=new ArrayList<>();
+            readMsgs=new ArrayList<>();context = getApplicationContext();
             setServiceInfo(info);
+            callIntent();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -206,9 +209,27 @@ public class NotificationService extends AccessibilityService {
     }
 
     private static void callIntent() {
-        Intent intent = new Intent(context, Confirmation.class);
-        intent.putExtra("name",name);
+        /*View rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
+        CustomSnackbar customSnackbar = CustomSnackbar.make((ViewGroup) rootView.getParent(),CustomSnackbar.LENGTH_INDEFINITE);
+        customSnackbar.setText("No network connection!");
+        customSnackbar.setAction("Retry", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // handle click here
+            }
+        });
+        customSnackbar.show();*/
+        final Intent intent = new Intent(context, CustomClass.class);
         context.startActivity(intent);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(context, Confirmation.class);
+                intent.putExtra("name",name);
+                context.startActivity(intent);
+            }
+        }, 5000);
     }
 
     private static void ttsOnInit(Context c, String txt) {
